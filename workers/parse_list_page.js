@@ -18,7 +18,7 @@ request(workerData.pageUrl, function(error, response, body) {
   var table = $('#pfrBody > div > div.pfrPrdListing > table');
   table.find('tbody tr').each(function (i, row) {
     var linkElement   = $(row).find('td:nth-child(1) a');
-    var url           = new URL(linkElement.attr('href'), pageUrl).href;
+    var url           = new URL(linkElement.attr('href'), workerData.pageUrl).href;
     var schoolName    = linkElement.text().trim();
     var isFeeAccepted = $(row).find('td:nth-child(2)').text().trim() === 'Yes';
     data.push([schoolName, url, isFeeAccepted]);
