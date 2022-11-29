@@ -1,0 +1,35 @@
+// Modify global object at the page initialization.
+// In this example, effectively Math.random() always returns 0.42.
+
+"use strict";
+var page = require('webpage').create();
+
+//page.onInitialized = function () {
+  //page.evaluate(function () {
+    //Math.random = function() {
+      //return 42 / 100;
+    //};
+  //});
+//};
+
+page.open('https://www.toronto.ca/data/children/dmc/a2z/a2za.html', function (status) {
+  console.log(status)
+
+  var result;
+  if (status !== 'success') {
+    console.log('Network error.');
+  } else {
+    var data = page.evaluate(function() {
+      var table = document.querySelector('#pfrBody > div > div.pfrPrdListing > table');
+      return Array.from(table.querySelectorAll('tbody tr')).map(function (row) {
+        var linkElement   = row.querySelector('td:nth-child(1) a');
+        var url           = linkElement.href;
+        var schoolName    = linkElement.textContent.trim();
+        var isFeeAccepted = row.querySelector('td:nth-child(2)').textContent.trim() === 'Yes';
+        return [schoolName, url, isFeeAccepted];
+      })
+    });
+    console.log(JSON.stringify(data, null, 4));
+  }
+  phantom.exit();
+});
