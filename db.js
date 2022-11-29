@@ -1,3 +1,4 @@
+const { Sequelize, Model, DataTypes } = require('sequelize');
 const path = require('path');
 const fs   = require('fs');
 
@@ -10,9 +11,9 @@ const models = [];
 const modelsPath = path.join(__dirname, 'models');
 
 fs.readdirSync(modelsPath).forEach(modelPath => {
-  const modelDefinition = require(modelPath);
+  const modelDefinition = require(path.join(modelsPath, modelPath));
   modelDefinition.klass.init(modelDefinition.fields, {sequelize});
-  models.push(model.klass);
+  models.push(modelDefinition.klass);
 });
 
 

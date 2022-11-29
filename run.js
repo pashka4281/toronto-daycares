@@ -1,11 +1,11 @@
 const { Worker } = require('worker_threads');
-const db = require('db');
+const db = require('./db');
 
 // create one single thread
 const listPageWorker = new Worker('./workers/parse_list_page.js', {
   workerData: {
     db,
-    pageUrl: 'https://www.toronto.ca/data/children/dmc/a2z/a2za.html';
+    pageUrl: 'https://www.toronto.ca/data/children/dmc/a2z/a2za.html',
   }
 });
 listPageWorker.on('message', (data) => {
