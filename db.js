@@ -5,6 +5,7 @@ const fs   = require('fs');
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: path.join(__dirname, 'database.sqlite'),
+  logging: false
 });
 
 const models = {};
@@ -18,6 +19,6 @@ fs.readdirSync(modelsPath).forEach(modelPath => {
 
 
 module.exports = {
-  sequelize: sequelize,
+  sequelize,
   models,
 };

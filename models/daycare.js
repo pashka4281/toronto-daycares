@@ -6,7 +6,7 @@ class Daycare extends Model {};
 const fields = {
   id                 : { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   name               : DataTypes.STRING,
-  url                : DataTypes.STRING,
+  url                : { type: DataTypes.STRING, unique: true },
   address            : DataTypes.STRING,
   isSubsidy          : DataTypes.BOOLEAN,
 
